@@ -28,7 +28,7 @@ const state = {
   trackers: [],
   trackersUpdated: null,
   trackersSource: 'newTrackon snapshot',
-  wt: null,              // lazy WebTorrent client
+  nextId: 1,
 };
 
 function recOf(id) { return state.torrents.get(id); }
@@ -269,7 +269,6 @@ $('#resumeBack').addEventListener('click', () => {
 function closeTab(id) {
   const rec = state.torrents.get(id);
   if (!rec) return;
-  if (rec.fetching && state.wt) { try { state.wt.torrents.forEach((t) => t.destroy()); } catch {} }
   state.torrents.delete(id);
   state.order = state.order.filter((x) => x !== id);
   if (state.order.length === 0) {
@@ -699,14 +698,19 @@ editor.addEventListener('click', (e) => {
 
 /* ---------------- fetch files from peers ---------------- */
 
+let wtClientPromise = null;
+
+// webtorrent's dist file is an ES module — lazy-import it only when needed
 function ensureWT() {
-  if (!state.wt && window.WebTorrent) state.wt = new window.WebTorrent();
-  return state.wt;
+  if (!wtClientPromise) {
+    wtClientPromise = import('https://cdn.jsdelivr.net/npm/webtorrent@2/dist/webtorrent.min.js')
+      .then((mod) => new mod.default());
+  }
+  return wtClientPromise;
 }
 
 function fetchFilesFromPeers(rec) {
   if (rec.fetching) return;
-  if (!window.WebTorrent) { toast('WebTorrent failed to load from CDN — check your connection.', 'error'); return; }
   rec.fetching = true;
   renderEditor();
 
@@ -724,8 +728,7 @@ function fetchFilesFromPeers(rec) {
 
   setTimeout(() => finish('Could not reach peers within 45s.'), 45000);
 
-  try {
-    const client = ensureWT();
+  ensureWT().then((client) => {
     client.add(magnet, (torrent) => {
       if (done) { try { torrent.destroy(); } catch {} return; }
       done = true;
@@ -740,9 +743,9 @@ function fetchFilesFromPeers(rec) {
       renderEditor();
       toast('File list fetched from peers.', 'success');
     });
-  } catch (err) {
-    finish('WebTorrent error: ' + err.message);
-  }
+  }).catch((err) => {
+    finish('WebTorrent failed to load: ' + err.message);
+  });
 }
 
 /* ---------------- input stage wiring ---------------- */
