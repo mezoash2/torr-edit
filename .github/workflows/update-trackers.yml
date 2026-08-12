@@ -1,0 +1,40 @@
+# Refreshes the bundled tracker list (trackers.txt) from newTrackon
+# every day at 04:23 UTC. Commit only happens when the list actually changed.
+name: Refresh tracker list
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch stable trackers from newTrackon
+        run: |
+          curl -sS --max-time 90 -A "torr-edit-tracker-refresh/1.0" \
+            https://newtrackon.com/api/stable -o trackers.new
+          # normalize: drop blank lines / CR, dedupe + sort, one tracker per line
+          tr -d '\r' < trackers.new | sed '/^[[:space:]]*$/d' | sort -u -o trackers.txt
+          rm -f trackers.new
+          date -u '+%Y-%m-%dT%H:%M:%SZ' > trackers-last-updated.txt
+          echo "tracker count: $(wc -l < trackers.txt)"
+
+      - name: Commit when changed
+        run: |
+          git config user.name "torr-edit bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add trackers.txt trackers-last-updated.txt
+          if git diff --cached --quiet; then
+            echo "Tracker list unchanged — nothing to commit."
+          else
+            count=$(wc -l < trackers.txt)
+            git commit -m "chore: refresh tracker list ($count trackers)"
+            git push
+          fi
