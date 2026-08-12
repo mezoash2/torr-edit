@@ -1,4 +1,4 @@
-# torr-edit_
+# torr-edit
 
 Inspect and edit torrent files and magnet links — **many at once**.
 
