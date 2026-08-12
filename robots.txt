@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# tracker list is meant to be fetched by the app itself
+Disallow: /trackers.txt

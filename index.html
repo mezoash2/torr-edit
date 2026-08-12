@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="torr-edit — inspect and edit torrent files and magnet links, many at once. Edit names, comments, trackers and webseeds, then export." />
+  <meta name="theme-color" content="#EFEAE0" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <title>torr-edit_ | inspect & edit torrents, many at once</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./src/style.css" />
+  <!-- WebTorrent powers the "fetch file list from peers" feature (lazy, only used on demand) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/webtorrent@2/dist/webtorrent.min.js"></script>
+</head>
+<body>
+  <div class="app">
+
+    <header class="masthead">
+      <div class="masthead-left">
+        <h1 class="wordmark" aria-label="torr-edit">torr<span class="mark">-</span>edit<span class="caret" aria-hidden="true"></span></h1>
+        <p class="tagline">Inspect &amp; edit torrents — many at once.</p>
+      </div>
+      <div class="masthead-right">
+        <button id="trackerChip" class="chip" type="button" title="Click to copy the full tracker list">trackers…</button>
+        <a class="chip chip-link" href="https://github.com/" target="_blank" rel="noopener">source</a>
+      </div>
+    </header>
+
+    <!-- ============ INPUT STAGE ============ -->
+    <section id="inputStage" class="input-stage">
+      <div id="resumeBar" class="resume-bar" hidden>
+        <span><span class="resume-count">0</span> torrent(s) already open — parse more here, or go back</span>
+        <button id="resumeBack" class="btn btn-ghost btn-sm" type="button">Back to workbench</button>
+      </div>
+      <div class="ghost-hash" aria-hidden="true">
+        <span class="ghost-cell">7C5B</span><span class="ghost-cell">3A91</span><span class="ghost-cell">E2D0</span><span class="ghost-cell">58F4</span><span class="ghost-cell">9B0C</span><span class="ghost-cell">D14E</span>
+      </div>
+
+      <h2 class="stage-title">Drop torrents. Paste magnets. <span class="many">As many as you like.</span></h2>
+      <p class="lede">Parse any number of <code>.torrent</code> files, magnet links or torrent URLs at the same time. Each opens in its own tab — rename, re-tracker, re-webseed, then export the edited torrent.</p>
+
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Drop .torrent files here, or press Enter to browse for files">
+        <div class="dz-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>
+        </div>
+        <div class="dz-main">Drop <code>.torrent</code> files here</div>
+        <div class="dz-sub">or click to browse — multiple files welcome, they all parse at once</div>
+      </div>
+      <input id="filePicker" type="file" accept=".torrent" multiple class="sr-only" aria-label="Choose .torrent files" />
+
+      <div class="paste-row">
+        <label class="sr-only" for="pasteBox">Paste magnet links or torrent URLs, one per line</label>
+        <textarea id="pasteBox" rows="3" spellcheck="false" placeholder="magnet:?xt=urn:btih:…&#10;magnet:?xt=urn:btih:…&#10;https://example.com/file.torrent"></textarea>
+        <button id="pasteAdd" class="btn btn-primary" type="button">Parse</button>
+      </div>
+
+      <div class="examples">
+        <span class="ex-label">Try</span>
+        <button id="exMagnet" class="btn btn-ghost" type="button">Ubuntu 24.04 magnet</button>
+        <button id="exRemote" class="btn btn-ghost" type="button">Remote .torrent URL</button>
+        <button id="exMany" class="btn btn-ghost" type="button">Two magnets at once</button>
+      </div>
+    </section>
+
+    <!-- ============ WORKBENCH ============ -->
+    <section id="workbench" class="workbench" hidden>
+      <div class="tabbar-wrap">
+        <div id="tabbar" class="tabbar" role="tablist" aria-label="Parsed torrents"></div>
+        <button id="newTab" class="tab-new" type="button" title="Parse another torrent" aria-label="Parse another torrent">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+      <div id="batchbar" class="batchbar" hidden>
+        <span id="batchCount" class="batch-label"></span>
+        <span class="batch-grow"></span>
+        <button id="batchTrackers" class="btn btn-ghost btn-sm" type="button">Add tracker list to all</button>
+        <button id="batchZip" class="btn btn-ghost btn-sm" type="button">Download all as .zip</button>
+        <button id="batchMagnets" class="btn btn-ghost btn-sm" type="button">Copy all magnets</button>
+      </div>
+      <main id="editor" class="editor" role="tabpanel"></main>
+    </section>
+
+    <footer class="foot">
+      <span>tracker list from <a href="https://newtrackon.com/list" target="_blank" rel="noopener">newTrackon</a>, refreshed daily by GitHub Actions</span>
+      <span>concept inspired by <a href="https://torrent.parts" target="_blank" rel="noopener">TorrentParts</a></span>
+    </footer>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
