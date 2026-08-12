@@ -27,31 +27,6 @@ fresh UI, multi-torrent workbench, and a tracker list that refreshes itself dail
   via WebTorrent (WebSocket trackers) and then export a full `.torrent`.
 - **Private by design** — everything runs in your browser; nothing is uploaded anywhere.
 
-## Deploy to your own GitHub Pages
-
-1. Create a new repository on GitHub (any name, e.g. `torr-edit`).
-2. Push this folder:
-   ```bash
-   git init
-   git add .
-   git commit -m "initial commit"
-   git branch -M main
-   git remote add origin https://github.com/<you>/<repo>.git
-   git push -u origin main
-   ```
-3. Enable Pages + Actions:
-   - **Settings → Pages → Source:** `GitHub Actions`
-   - **Settings → Actions → General → Workflow permissions:** `Read and write
-     permissions` (required so the tracker-refresh bot can commit).
-4. Your site goes live at `https://<you>.github.io/<repo>/`.
-   - First deploy: run the *Deploy to GitHub Pages* workflow manually
-     (Actions tab → workflow → *Run workflow*).
-   - First tracker fetch: run the *Refresh tracker list* workflow manually the same
-     way — after that it runs itself daily at 04:23 UTC.
-
-> If the tracker refresh workflow needs approval the first time, approve it once;
-> subsequent runs are automatic.
-
 ## How the tracker list works
 
 | File | Purpose |
