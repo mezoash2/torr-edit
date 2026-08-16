@@ -6,9 +6,9 @@ http://lucke.fenesisu.moe:6969/announce
 http://tracker.bt4g.com:2095/announce
 http://tracker.dhitechnical.com:6969/announce
 http://tracker.ipv6tracker.ru:80/announce
+http://tracker.mywaifu.best:6969/announce
 http://tracker.renfei.net:8080/announce
 http://tracker.waaa.moe:6969/announce
-http://tracker.xn--djrq4gl4hvoi.top:80/announce
 http://wegkxfcivgx.ydns.eu:80/announce
 https://004430.xyz:443/announce
 https://t.213891.xyz:443/announce
@@ -31,6 +31,7 @@ udp://open.ftorrent.com:443/announce
 udp://open.stealth.si:80/announce
 udp://retracker.hotplug.ru:2710/announce
 udp://t.overflow.biz:6969/announce
+udp://torrent.tracker.durukanbal.com:6969/announce
 udp://torrentclub.online:1984/announce
 udp://tr3.ysagin.top:2715/announce
 udp://tracker-udp.gbitt.info:80/announce
@@ -41,6 +42,7 @@ udp://tracker.corpscorp.online:80/announce
 udp://tracker.dler.com:6969/announce
 udp://tracker.gmi.gd:6969/announce
 udp://tracker.ilibr.org:6969/announce
+udp://tracker.k.vu:6969/announce
 udp://tracker.nexusstream.eu:6969/announce
 udp://tracker.nyaa.net:6969/announce
 udp://tracker.opentrackr.com:6969/announce
