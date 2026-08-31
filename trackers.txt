@@ -1,3 +1,4 @@
+http://bt.okmp3.ru:2710/announce
 http://bt1.archive.org:6969/announce
 http://bt2.archive.org:6969/announce
 http://echostar.ddnsfree.com:8080/announce
@@ -29,6 +30,7 @@ udp://obey.torrentonline.cc:42069/announce
 udp://open.ftorrent.com:443/announce
 udp://open.stealth.si:80/announce
 udp://retracker.hotplug.ru:2710/announce
+udp://t.overflow.biz:6969/announce
 udp://torrent.tracker.durukanbal.com:6969/announce
 udp://torrentclub.online:1984/announce
 udp://tr4ck3r.duckdns.org:6969/announce
