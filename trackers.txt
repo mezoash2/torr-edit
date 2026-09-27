@@ -25,6 +25,7 @@ udp://martin-gebhardt.eu:25/announce
 udp://open.demonii.com:1337/announce
 udp://open.ftorrent.com:443/announce
 udp://open.stealth.si:80/announce
+udp://opentracker.lain.moscow:6969/announce
 udp://retracker.hotplug.ru:2710/announce
 udp://t.overflow.biz:6969/announce
 udp://torrent.tracker.durukanbal.com:6969/announce
