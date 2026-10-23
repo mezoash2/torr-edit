@@ -28,6 +28,7 @@ udp://open.ftorrent.com:443/announce
 udp://open.stealth.si:80/announce
 udp://opentracker.lain.moscow:6969/announce
 udp://torrent.tracker.durukanbal.com:6969/announce
+udp://tr.btube3.com:2010/announce
 udp://tr4ck3r.duckdns.org:6969/announce
 udp://tracker-udp.gbitt.info:80/announce
 udp://tracker.cn.nyaa.net:6969/announce
