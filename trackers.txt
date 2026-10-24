@@ -23,12 +23,12 @@ udp://evan.im:6969/announce
 udp://kolankoalastree.newtrackon.co.nz:1337/announce
 udp://mail.segso.net:6969/announce
 udp://martin-gebhardt.eu:25/announce
+udp://ns575949.ip-51-222-82.net:6969/announce
 udp://open.demonii.com:1337/announce
 udp://open.ftorrent.com:443/announce
 udp://open.stealth.si:80/announce
 udp://opentracker.lain.moscow:6969/announce
 udp://torrent.tracker.durukanbal.com:6969/announce
-udp://tr.btube3.com:2010/announce
 udp://tr4ck3r.duckdns.org:6969/announce
 udp://tracker-udp.gbitt.info:80/announce
 udp://tracker.cn.nyaa.net:6969/announce
