@@ -2,6 +2,7 @@ http://bt1.archive.org:6969/announce
 http://bt2.archive.org:6969/announce
 http://echostar.ddnsfree.com:8080/announce
 http://ipv4announce.sktorrent.eu:6969/announce
+http://taciturn-shadow.spb.ru:6969/announce
 http://tracker.dhitechnical.com:6969/announce
 http://tracker.internetwarriors.net:1337/announce
 http://tracker.ipv6tracker.ru:80/announce
