@@ -21,7 +21,6 @@ https://tracker.qingwapt.org:443/announce
 udp://bt-tracker.de:6969/announce
 udp://evan.im:6969/announce
 udp://kolankoalastree.newtrackon.co.nz:1337/announce
-udp://mail.segso.net:6969/announce
 udp://martin-gebhardt.eu:25/announce
 udp://ns575949.ip-51-222-82.net:6969/announce
 udp://open.demonii.com:1337/announce
@@ -43,8 +42,8 @@ udp://tracker.nyaa.vc:6969/announce
 udp://tracker.okade.pro:1337/announce
 udp://tracker.opentrackr.com:6969/announce
 udp://tracker.opentrackr.org:1337/announce
-udp://tracker.peerfect.org:6969/announce
 udp://tracker.qu.ax:6969/announce
+udp://tracker.sela.st:6969/announce
 udp://tracker.torrent.eu.org:451/announce
 udp://tracker.torrents.observer:80/announce
 udp://tracker.wildkat.net:6969/announce
